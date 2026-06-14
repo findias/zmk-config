@@ -2,4 +2,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    # Pinned to the same pre-Zephyr-4.1 ZMK revision as config/west.yml.
+    # @main pulls the new reusable workflow which expects the Zephyr 4.1 board
+    # format (board 'qualifiers') and crashes on the legacy mriya board.
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@abb64ba316c29caddc49727ca2cac2f0ed5970c7
