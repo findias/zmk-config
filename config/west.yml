@@ -5,7 +5,10 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      # Pinned to last ZMK commit before the Zephyr 4.1 migration (#3060, 2025-12-10),
+      # which the custom `mriya` board is not yet adapted to. Unpin once the board
+      # is migrated to the new ZMK board-variant scheme.
+      revision: abb64ba316c29caddc49727ca2cac2f0ed5970c7
       import: app/west.yml
   self:
     path: config
