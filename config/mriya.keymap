@@ -170,21 +170,21 @@
         };
 
         /* ══════════════════════════════════════════════════════
-         *  Layer 5 — ADJ (через NAV+SYM)
-         *  верхний ряд: OUT_TOG + BT-профили · G = вкл/выкл GAME
+         *  Layer 5 — ADJ (Bluetooth + система, через NAV+SYM)
+         *  Всё как в v2; добавлена только W — вкл/выкл GAME
          * ══════════════════════════════════════════════════════ */
         adjust_layer {
             bindings = <
             &none      &none      &none      &none      &none      &none          &none      &none      &none      &none      &none      &none
-&bootloader &out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none &none  &none      &none      &none      &none      &bootloader
-           &bt BT_CLR &none      &none      &none      &none      &tog GAME       &none      &none      &none      &none      &none      &none
+&none      &bootloader &none     &tog GAME  &none      &none      &none           &none      &none      &none      &none      &bootloader &none      &none
+           &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &out OUT_TOG &none  &none      &none      &none      &none
            &sys_reset &none      &none      &none      &none      &none          &none      &none      &none      &none      &none      &sys_reset
                                  &none      &none      &none      &none          &none      &none      &none      &none
             >;
         };
 
         /* ══════════════════════════════════════════════════════
-         *  Layer 6 — GAME (толкается &tog: NAV+SYM затем G)
+         *  Layer 6 — GAME (включается: NAV+SYM затем W)
          *  Никаких hold-tap: все клавиши — чистый &kp.
          *  Большие пальцы слева: ALT · CTRL · SHIFT · SPACE
          *  Выход: правый крайний большой палец (&to DEF)
