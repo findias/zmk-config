@@ -1,6 +1,11 @@
 /*
  * Copyright (c) 2023 Andrei Gaevskii
- * Optimized layout (v2) — Linux / QWERTY / programming
+ * Layout v3 — Linux / QWERTY / programming + gaming
+ *
+ * Отличия от v2:
+ *   • новый слой GAME (6) — полностью без home-row-mods и layer-tap;
+ *   • новый слой GEXT (7) — F-ряд, стрелки, медиа и BT прямо из игры;
+ *   • ADJ переорганизован: BT/OUT переехали на верхний ряд, на G — &tog GAME.
  *
  * SPDX-License-Identifier: MIT
  */
@@ -10,19 +15,21 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
-#define DEF 0
-#define NAV 1
-#define SYM 2
-#define NUM 3
-#define FUN 4
-#define ADJ 5
+#define DEF  0
+#define NAV  1
+#define SYM  2
+#define NUM  3
+#define FUN  4
+#define ADJ  5
+#define GAME 6
+#define GEXT 7
 
 /* ── Позиции (transform order, 0-57) ──────────────────────────
  * Row0:  0  1  2  3  4  5   |   6  7  8  9 10 11
  * Row1: 12 13 14 15 16 17 18 | 19 20 21 22 23 24 25
  * Row2: 26 27 28 29 30 31   | 32 33 34 35 36 37
  * Row3: 38 39 40 41 42 43   | 44 45 46 47 48 49
- * Thmb:       50 51 52 53   | 54 55 56 57
+ * Thmb:       50 51 52 53   | 54 55 56 57      (53/54 — внутренние)
  * ──────────────────────────────────────────────────────────── */
 
 / {
@@ -74,7 +81,7 @@
     combos {
         compatible = "zmk,combos";
 
-        /* F + J → Caps Word */
+        /* F + J → Caps Word (только DEF — в игре не мешает) */
         combo_caps_word {
             timeout-ms = <50>;
             key-positions = <30 33>;
@@ -163,15 +170,47 @@
         };
 
         /* ══════════════════════════════════════════════════════
-         *  Layer 5 — ADJ (Bluetooth + система, через NAV+SYM)
+         *  Layer 5 — ADJ (через NAV+SYM)
+         *  верхний ряд: OUT_TOG + BT-профили · G = вкл/выкл GAME
          * ══════════════════════════════════════════════════════ */
         adjust_layer {
             bindings = <
             &none      &none      &none      &none      &none      &none          &none      &none      &none      &none      &none      &none
-&none      &bootloader &none     &none      &none      &none      &none           &none      &none      &none      &none      &bootloader &none      &none
-           &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &out OUT_TOG &none  &none      &none      &none      &none
+&bootloader &out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none &none  &none      &none      &none      &none      &bootloader
+           &bt BT_CLR &none      &none      &none      &none      &tog GAME       &none      &none      &none      &none      &none      &none
            &sys_reset &none      &none      &none      &none      &none          &none      &none      &none      &none      &none      &sys_reset
                                  &none      &none      &none      &none          &none      &none      &none      &none
+            >;
+        };
+
+        /* ══════════════════════════════════════════════════════
+         *  Layer 6 — GAME (толкается &tog: NAV+SYM затем G)
+         *  Никаких hold-tap: все клавиши — чистый &kp.
+         *  Большие пальцы слева: ALT · CTRL · SHIFT · SPACE
+         *  Выход: правый крайний большой палец (&to DEF)
+         * ══════════════════════════════════════════════════════ */
+        game_layer {
+            bindings = <
+            &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5         &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp MINUS
+&kp TAB    &kp GRAVE  &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P      &kp LBKT   &kp RBKT
+           &kp ESC    &kp A      &kp S      &kp D      &kp F      &kp G          &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
+           &kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &kp RSHFT
+                                 &kp LALT   &kp LCTRL  &kp LSHFT  &kp SPACE      &kp RET    &mo GEXT   &kp BSPC   &to DEF
+            >;
+        };
+
+        /* ══════════════════════════════════════════════════════
+         *  Layer 7 — GEXT (держать правым большим пальцем в GAME)
+         *  F1–F12 верхним рядом · стрелки на HJKL · медиа · BT
+         *  Выход в DEF: левый мизинец нижнего ряда или крайний палец
+         * ══════════════════════════════════════════════════════ */
+        game_ext_layer {
+            bindings = <
+            &kp F1     &kp F2     &kp F3     &kp F4     &kp F5     &kp F6         &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
+&trans     &trans     &trans     &trans     &trans     &trans     &trans          &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp INS    &kp PSCRN  &trans
+           &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &kp LEFT &kp DOWN &kp UP    &kp RIGHT  &kp HOME   &kp END
+           &to DEF    &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp C_PP &kp PSCRN     &trans     &trans     &trans     &trans     &trans     &trans
+                                 &trans     &trans     &trans     &trans          &trans     &trans     &trans     &to DEF
             >;
         };
     };
