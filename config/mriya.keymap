@@ -28,6 +28,11 @@
     quick_tap_ms = <200>;
 };
 
+/* Sticky Super в GEXT: успеть отпустить слой и нажать цифру/букву в GAME */
+&sk {
+    release_after_ms = <2000>;
+};
+
 / {
     keymap {
         compatible = "zmk,keymap";
@@ -76,13 +81,14 @@
          *  Layer 4 — GAME (вход: ADJ + W)
          *  Ни одного hold-tap: все клавиши — чистый &kp.
          *  Большие пальцы слева: ALT · CTRL · SHIFT · SPACE
+         *  Мизинец домашнего ряда — LCTRL (присед), ESC только в цифровом ряду
          *  Выход: крайний правый большой палец (&to DEF)
          * ══════════════════════════════════════════════════════ */
         game_layer {
             bindings = <
             &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5         &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp MINUS
 &kp TAB    &kp GRAVE  &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P      &kp LBKT   &kp RBKT
-           &kp ESC    &kp A      &kp S      &kp D      &kp F      &kp G          &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
+           &kp LCTRL  &kp A      &kp S      &kp D      &kp F      &kp G          &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
            &kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &kp BSLH
                                  &kp LALT   &kp LCTRL  &kp LSHFT  &kp SPACE      &kp RET    &mo GEXT   &kp BSPC   &to DEF
             >;
@@ -91,12 +97,13 @@
         /* ══════════════════════════════════════════════════════
          *  Layer 5 — GEXT (держать правым большим пальцем в GAME)
          *  F1–F12 верхним рядом · стрелки на HJKL · медиа · BT
+         *  Внешний левый верхний — sticky Super для i3 (тап, потом цифра в GAME)
          *  Выход в DEF: левый мизинец нижнего ряда или крайний палец
          * ══════════════════════════════════════════════════════ */
         game_ext_layer {
             bindings = <
             &kp F1     &kp F2     &kp F3     &kp F4     &kp F5     &kp F6         &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
-&trans     &trans     &trans     &trans     &trans     &trans     &trans          &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp INS    &kp PSCRN  &trans
+&sk LGUI   &trans     &trans     &trans     &trans     &trans     &trans          &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp INS    &kp PSCRN  &trans
            &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &kp LEFT &kp DOWN &kp UP    &kp RIGHT  &kp HOME   &kp END
            &to DEF    &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp C_PP &kp PSCRN     &trans     &trans     &trans     &trans     &trans     &trans
                                  &trans     &trans     &trans     &trans          &trans     &trans     &trans     &to DEF
