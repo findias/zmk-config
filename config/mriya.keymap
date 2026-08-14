@@ -30,7 +30,7 @@
 
 /* Sticky Super в GEXT: успеть отпустить слой и нажать цифру/букву в GAME */
 &sk {
-    release_after_ms = <2000>;
+    release-after-ms = <2000>;
 };
 
 / {
