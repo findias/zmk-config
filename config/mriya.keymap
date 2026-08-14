@@ -82,15 +82,17 @@
          *  Ни одного hold-tap: все клавиши — чистый &kp.
          *  Большие пальцы слева: ALT · CTRL · SHIFT · SPACE
          *  Мизинец домашнего ряда — LCTRL (присед), ESC только в цифровом ряду
-         *  Выход: крайний правый большой палец (&to DEF)
+         *  Выход: внешняя правая клавиша верхнего ряда (там, где ] в DEF).
+         *  На крайнем правом большом пальце его больше НЕТ — он сидел под
+         *  ладонью и ловил случайные нажатия посреди игры.
          * ══════════════════════════════════════════════════════ */
         game_layer {
             bindings = <
             &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5         &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp MINUS
-&kp TAB    &kp GRAVE  &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P      &kp LBKT   &kp RBKT
+&kp TAB    &kp GRAVE  &kp Q      &kp W      &kp E      &kp R      &kp T          &kp Y      &kp U      &kp I      &kp O      &kp P      &kp LBKT   &to DEF
            &kp LCTRL  &kp A      &kp S      &kp D      &kp F      &kp G          &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
            &kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &kp BSLH
-                                 &kp LALT   &kp LCTRL  &kp LSHFT  &kp SPACE      &kp RET    &mo GEXT   &kp BSPC   &to DEF
+                                 &kp LALT   &kp LCTRL  &kp LSHFT  &kp SPACE      &kp RET    &mo GEXT   &kp BSPC   &none
             >;
         };
 
