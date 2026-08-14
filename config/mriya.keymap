@@ -96,7 +96,9 @@
 
         /* ══════════════════════════════════════════════════════
          *  Layer 5 — GEXT (держать правым большим пальцем в GAME)
-         *  F1–F12 верхним рядом · стрелки на HJKL · медиа · BT
+         *  F1–F12 верхним рядом · стрелки на HJKL · медиа
+         *  Домашний ряд слева прозрачный: присед и ASDFG работают и с зажатым
+         *  GEXT. Управление BT живёт только на ADJ — в игре оно било по бондам.
          *  Внешний левый верхний — sticky Super для i3 (тап, потом цифра в GAME)
          *  Выход в DEF: левый мизинец нижнего ряда или крайний палец
          * ══════════════════════════════════════════════════════ */
@@ -104,7 +106,7 @@
             bindings = <
             &kp F1     &kp F2     &kp F3     &kp F4     &kp F5     &kp F6         &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
 &sk LGUI   &trans     &trans     &trans     &trans     &trans     &trans          &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp INS    &kp PSCRN  &trans
-           &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &kp LEFT &kp DOWN &kp UP    &kp RIGHT  &kp HOME   &kp END
+           &trans     &trans     &trans     &trans     &trans     &trans         &kp LEFT   &kp DOWN   &kp UP     &kp RIGHT  &kp HOME   &kp END
            &to DEF    &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp C_PP &kp PSCRN     &trans     &trans     &trans     &trans     &trans     &trans
                                  &trans     &trans     &trans     &trans          &trans     &trans     &trans     &to DEF
             >;
